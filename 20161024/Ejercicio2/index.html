@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lista de usuarios registrados</title>
+	<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+	<h1>Peticiones Http</h1>
+	
+	<section>
+		<header>Lista de Usuarios</header>
+		<article>
+			<button id="get">Get Data</button>
+			<ul id="listaUsuarios"></ul>
+		</article>
+	</section>
+
+	<script>
+		function init()
+		{
+			var url = 'https://jsonplaceholder.typicode.com';
+
+			document.querySelector('#get').addEventListener("click", function() {
+
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("GET", url+"/users", true); // true asincrona, false sincrona
+				xhttp.send();
+
+				xhttp.onreadystatechange = function() {
+					if (this.readyState === 4 && this.status === 200) {
+						var elements = "";
+						var response = JSON.parse(this.responseText);
+						console.log(response);
+						console.log(response.length);
+						for (var key in response) {
+							var node = document.createElement("LI"); 
+							var textnode = document.createTextNode(response[key].name);
+							node.appendChild(textnode);                      
+							document.querySelector('#listaUsuarios').appendChild(node);
+						}
+					}
+				};
+			});
+
+		}
+		init();
+	</script>
+</body>
+</html>
