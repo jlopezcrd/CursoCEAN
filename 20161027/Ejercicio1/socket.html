@@ -1,0 +1,110 @@
+<!-- Codigo HTML cedido por el profesor de CTA -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatIO</title>
+    <style>
+        body{
+            background:#f9f9f9;
+        }
+
+        #container{
+            width:700px;
+            margin:0 auto;
+        }
+
+        #chatWindow{
+            height:300px;
+        }
+
+        #mainWrapper{
+            
+        }
+
+        #chatWrapper{
+            float:left;
+            border:1px #ccc solid;
+            border-radius: 10px;
+            background:#f4f4f4;
+            padding:10px;
+        }
+
+        #userWrapper{
+            float:left;
+            border:1px #ccc solid;
+            border-radius: 10px;
+            background:#f4f4f4;
+            padding:10px;
+            margin-left:20px;
+            width:150px;
+            max-height:200px;
+        }
+
+        #namesWrapper{
+            display:none;
+            float:left;
+            border:1px #ccc solid;
+            border-radius: 10px;
+            background:#f4f4f4;
+            padding:10px;
+            margin-left:20px;
+        }
+
+        input{
+            height:30px;
+            border:solid 1px #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="namesWrapper">
+            <h2>Chat App</h2>
+            <p>Nombre Usuario:</p>
+            <form id="usernameForm">
+                <input type="text" size="35" id="username">
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+
+        <div id="mainWrapper">
+            <h2>Chat App</h2>
+            <div id="chatWrapper">
+                <div id="chatWindow"></div>
+                <form id="messageForm">
+                    <input type="text" size="35" id="message" placeholder="Escribe algo...">
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+
+            <div id="userWrapper">
+                <div id="users"></div>
+            </div>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+        var socket       = io.connect();
+        
+        var $messageForm = $('#messageForm');
+        var $message     = $('#message');
+        var $chat        = $('#chatWindow');
+
+        // Obtenemos el evento de submit de form
+        $messageForm.submit(function(e) {
+            // Cancelamos el comportamiento por defecto
+            e.preventDefault();
+            // Emitimos el evento enviando el mensaje
+            socket.emit('send:message', $message.val());
+            // Limpiamos la caja
+            $message.val('');
+        });
+
+        socket.on('send:message', function(data) {
+            $chat.append(data.msg + '<br>');
+        });
+
+    </script>
+</body>
+</html>
