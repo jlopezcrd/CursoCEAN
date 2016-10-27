@@ -15,11 +15,15 @@ app.get('/', function(request, response) {
 
 // Inciamos el socket = (title) => {
 io.sockets.on('connection', function(socket) {
-    console.log('Socket conectado...');
+    
+    //console.log('Socket conectado...');
+    socket.emit('send:message', {msg:'Conectando con socket..'});
 
     socket.on('send:message', function(data) {
         console.log(data);
         io.sockets.emit('send:message', {msg:data});
     });
+
+    socket.emit('send:message', {msg:'hola'});
 
 });
