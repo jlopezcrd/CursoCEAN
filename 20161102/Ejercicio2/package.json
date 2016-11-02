@@ -1,0 +1,18 @@
+{
+  "name": "ejercicio2",
+  "version": "1.0.0",
+  "description": "1. Levantar un server con express\r 2. API:\r     - Obtener personas (listado)\r     - Crear persona\r     - Obtener persona (id)\r     - Crear comentario",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "lodash": "^4.16.6",
+    "morgan": "^1.7.0"
+  }
+}
