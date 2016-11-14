@@ -1,0 +1,15 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label class="sr-only" for="search">Search</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="search" placeholder="Search" 
+        [(ngModel)]="searchString" name="search">
+    </div>
+  </div>
+  <button type="button" (click)="searchMusic()" class="btn btn-default">Search</button>
+</form>
+<ul>
+  <li *ngFor="let artist of listArtist">
+    <a routerLink="artist/{{artist.id}}" (click)="setArtist(artist)">{{artist.name}}</a>
+  </li>
+</ul>

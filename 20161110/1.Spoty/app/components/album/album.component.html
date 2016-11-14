@@ -1,0 +1,20 @@
+<div class="col-md-12" stlye="padding-top: 2%">
+    <div class="">
+        <div class="col-md-4" *ngFor="let song of listSongs">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="text-align: center">
+                {{song.name}}
+            </div>
+            <div class="panel-body">
+                <img src="{{image}}" class="img-responsive" style="width: 100%">
+            </div>
+            <div class="panel-footer">
+                <audio controls style="width:100%">
+                    <source src="{{song.preview_url}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
