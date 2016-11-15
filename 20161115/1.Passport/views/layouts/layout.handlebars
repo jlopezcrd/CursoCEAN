@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    {{#if user}}
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/users/logout">Logout</a></li>
+                    {{else}}
+                    <li><a href="/users/login">Login</a></li>
+                    <li><a href="/users/register">Register</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+
+        <h1 class="text-center"><i class="fa fa-lock" aria-hidden="true"></i> Authentication App</h1>
+        {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+        {{/if}}
+        {{{body}}}
+    </div>
+    
+    <p class="text-center">Develop by: Jorge</p>
+</body>
+</html>

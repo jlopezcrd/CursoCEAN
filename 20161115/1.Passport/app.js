@@ -17,9 +17,15 @@ var flash            = require('connect-flash');
 var couchbase  = require('couchbase');
 var cluster    = new couchbase.Cluster('couchbase://127.0.0.1');
 var ottoman    = require('ottoman');
-ottoman.bucket = cluster.openBucket('default');
+var bucket     = cluster.openBucket('default');
+ottoman.bucket = bucket;
+
+module.exports.bucket = bucket;
 
 var app = express();
+
+// statics mappings
+app.use(express.static(path.join(__dirname, 'public')));
 
 //sistema de templating
 app.set('views', path.join(__dirname, 'views'));
@@ -40,15 +46,37 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*app.use(expressValidator(){
-
-});*/
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+ 
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
 
 app.use(flash());
+
+app.use(function(req, res, next) {
+    res.locals.error       = req.flash('error');
+    res.locals.user        = req.user || null;
+    next();
+});
 
 //routes
 var routes = require('./routes');
 app.use('/', routes);
+
+var users = require('./routes/users');
+app.use('/users', users);
 
 ottoman.ensureIndices(function(err) {
     if(err) throw err;

@@ -1,0 +1,31 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "couchbase": "^2.2.3",
+    "ejs": "^2.5.2",
+    "lodash": "^4.16.6",
+    "morgan": "^1.7.0",
+    "uuid": "^2.0.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.14.2",
+    "express-validator": "^2.21.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "bcryptjs":"*",
+    "ottoman":"*",
+    "connect-flash":"*"
+  }
+}
