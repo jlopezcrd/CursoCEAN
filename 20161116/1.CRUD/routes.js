@@ -72,6 +72,23 @@ var appRouter = (app) => {
 
     })
 
+    app.delete("/pelicula", jsonParser, function(request, response, next) {
+    
+        if (!request.body.id)
+            return response.status(400).send(responseMsg(400));
+
+        peliculasModel.delete(request.body, (error, result) => {
+
+            if(error) {
+                return response.status(error.code).send(error);
+            }
+
+            response.status(result.code).send(result);
+
+        });
+
+    })
+
 };
 
 module.exports = appRouter;

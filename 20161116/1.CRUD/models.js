@@ -96,4 +96,30 @@ PeliculasModel.getById = (data, callback) => {
 
 }
 
+PeliculasModel.delete = (data, callback) => {
+
+    console.log(data.id);
+    bucket.remove(data.id, (error, result) => {
+        if(error) {
+            console.log(error);
+
+            if( error.code === 13)
+                return callback(responseMsg(404), null);
+            else
+                return callback(responseMsg(400), null);
+        }
+
+        if (result)
+        {
+
+            console.log(result);
+            
+            callback(null, responseMsg(200, result));
+        }
+        else
+            callback(responseMsg(404), null);
+    });
+
+}
+
 module.exports.PeliculasModel = PeliculasModel;
