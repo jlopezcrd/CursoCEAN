@@ -11,4 +11,11 @@ config.db = {
     'BUCKET': 'example',
 }
 
+config.errors = {
+    400: 'Bad Request!',
+    200: 'Success!',
+    201: 'Success!',
+    404: 'Not Found!'
+}
+
 module.exports = config;

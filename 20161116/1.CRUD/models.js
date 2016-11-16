@@ -1,13 +1,14 @@
-var uuid   = require('uuid');
-var n1ql   = require('couchbase').N1qlQuery;
-var bucket = require('./app').bucket;
+var uuid     = require('uuid');
+var n1ql     = require('couchbase').N1qlQuery;
+var bucket   = require('./app').bucket;
+const config = require('./config');
 
 function PeliculasModel() {}
 
-function response(code, text, data=null) {
+function responseMsg(code, data=null) {
     return {
         'code': code,
-        'text': text,
+        'text': config.errors[code],
         'data': data
     }
 }
@@ -15,7 +16,7 @@ function response(code, text, data=null) {
 PeliculasModel.getAll = (callback) => {
     
     var statement = `SELECT META(pelicula).id, pelicula.titulo, 
-    pelicula.director, pelicula.duracion 
+    pelicula.director, pelicula.duracion, pelicula.type, pelicula.timestamp
     FROM \`${bucket._name}\` AS pelicula
     WHERE pelicula.type = 'pelicula'`;
 
@@ -24,13 +25,15 @@ PeliculasModel.getAll = (callback) => {
         if (error)
         {
             console.log(error);
-            return callback(response(400, 'Bad request!!'), null);
+            return callback(responseMsg(400), null);
         }
         
+        console.log(result);
+
         if (result.length > 0)
-            callback(null, response(200, 'Success', result));
+            callback(null, responseMsg(200, result));
         else
-            callback(response(404, 'No Data!'), null);
+            callback(responseMsg(404), null);
     });
 
 }
@@ -49,10 +52,19 @@ PeliculasModel.save = (data, callback) => {
     bucket.upsert(id, pelicula, (error, result) => {
         if (error) {
             console.log(error);
-            return callback(response(400, 'Bad request!!'), null);
+            return callback(responseMsg(400), null);
         }
 
-        callback(null, response(200, 'Success', result));
+        if (result)
+        {
+            pelicula.id  = id;
+            pelicula.cas = result.cas;
+            console.log(result);
+
+            callback(null, responseMsg(201, pelicula));
+        }
+        else
+            return callback(responseMsg(400), null);
 
     });
 
@@ -61,21 +73,25 @@ PeliculasModel.save = (data, callback) => {
 PeliculasModel.getById = (data, callback) => {
 
     console.log(data.id);
-    bucket.get(data.id, (error, result) => {
+    bucket.get(data.id, (error, resultO) => {
         if(error) {
             console.log(error);
-            return callback(response(400, 'Bad request!!'), null);
+            return callback(responseMsg(400), null);
         }
 
-        if (result)
+        if (resultO)
         {
-            result.value.id = data.id;
+            //result.value.id = data.id;
+            result = resultO.value;
+            result.id = data.id;
+            result.cas = resultO.cas;
+
             console.log(result);
             
-            callback(null, response(200, 'Success', result));
+            callback(null, responseMsg(200, result));
         }
         else
-            callback(response(404, 'No Data!'), null);
+            callback(responseMsg(404), null);
     });
 
 }
