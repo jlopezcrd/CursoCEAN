@@ -27,6 +27,11 @@ app.use(morgan('combined'));
 app.use(bparser.json());
 app.use(bparser.urlencoded({ extended: false}));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+});
+
 var routes = require('./routes')(app);
 
 // Crear el servidor y escuchar en el puerto
