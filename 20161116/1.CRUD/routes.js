@@ -6,7 +6,7 @@ var appRouter = (app) => {
 
         peliculasModel.getAll((error, result) => {
             if (error) {
-                return response.status(400).send(error);
+                return response.status(error.code).send(error);
             }
 
             response.send(result);
@@ -15,12 +15,26 @@ var appRouter = (app) => {
     })
 
     app.post("/pelicula", (request, response, next) => {
-        
+
+        peliculasModel.save(request.body, (error, result) => {
+            if(error) {
+                return response.status(error.code).send(error);
+            }
+
+            response.send(result);
+        });
 
     })
 
     app.get("/pelicula/:id", (request, response, next) => {
         
+        peliculasModel.getById(request.params, (error, result) => {
+            if (error) {
+                return response.status(error.code).send(error);
+            }
+
+            response.send(result);
+        });
 
     })
 

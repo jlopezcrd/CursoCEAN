@@ -5,14 +5,15 @@ const express   = require('express');
 const morgan    = require('morgan');
 const bparser   = require('body-parser');
 const couchbase = require('couchbase');
+const config    = require('./config');
 
 // Configuramos el puerto en el que quermos escuchar
-const PORT      = 80;
-const HOSTNAME  = "localhost";
+const PORT      = `${config.express.PORT}`
+const HOSTNAME  = `${config.express.HOST}`
 
 // Creamos el cluster de couchbase
-var cluster           = new couchbase.Cluster("couchbase://localhost");
-var bucket            = cluster.openBucket("example");
+var cluster           = new couchbase.Cluster(`${config.db.TYPE}//${config.db.HOST}`);
+var bucket            = cluster.openBucket(`${config.db.BUCKET}`);
 module.exports.bucket = bucket;
 
 // Instanaciamos el middleware express
