@@ -4,11 +4,16 @@ import 'rxjs/add/operator/map';
 
 //import { Artist } from '../models/artist.model';
 
-const base_url = "https://api.spotify.com/v1";
-const fin_url = "&offset=0&limit=10&type=";
+const base_url = "https://192.168.3.8";
 
 @Injectable()
 export class PeliculasService {
+
+    getMovies()
+    {
+        return this._http.get(`${base_url}/movie`)
+            .map(res => res.json());
+    }    
 
     /*public artist: Artist;
 

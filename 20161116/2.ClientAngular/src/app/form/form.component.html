@@ -1,29 +1,20 @@
-<form class="form-horizontal"(submit) = "submitMarker($event)">
+<form class="form-horizontal"(submit) = "submitPelicula($event)">
     <div class="form-group">
-        <label for="nombre" class="col-sm-2 control-label">Nombre Marker:</label>
+        <label for="titulo" class="col-sm-2 control-label">Titulo:</label>
         <div class="col-sm-10">
-            <input type="text" [(ngModel)]="formName" class="form-control" id="nombre"  name="name"placeholder="Nombre del marker">
+            <input type="text" [(ngModel)]="formTitulo" class="form-control" id="titulo"  name="name"placeholder="titulo">
         </div>
     </div>
     <div class="form-group">
-        <label for="latitude" class="col-sm-2 control-label">Latitude:</label>
+        <label for="autor" class="col-sm-2 control-label">Autor:</label>
         <div class="col-sm-10">
-            <input type="text" [(ngModel)]="formLatitude" class="form-control" id="latitude"  name="latitude"placeholder="Latitude">
+            <input type="text" [(ngModel)]="formAutor" class="form-control" id="autor"  name="autor"placeholder="autor">
         </div>
     </div>
     <div class="form-group">
-        <label for="longitude" class="col-sm-2 control-label">Longitude:</label>
+        <label for="duracion" class="col-sm-2 control-label">Duracion:</label>
         <div class="col-sm-10">
-            <input type="text" [(ngModel)]="formLongitude" class="form-control" id="longitude"  name="longitude"placeholder="Latitude">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" [(ngModel)]="formDraggable" name="draggable"> Draggable
-                </label>
-            </div>
+            <input type="text" [(ngModel)]="formDuracion" class="form-control" id="duracion"  name="duracion"placeholder="duracion">
         </div>
     </div>
     <div class="form-group">
