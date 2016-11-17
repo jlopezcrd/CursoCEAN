@@ -28,8 +28,7 @@ export class HomeComponent {
         console.log(this.formAutor);
         console.log(this.formDuracion);
 
-        this.activatedRoute.params.map(params => params['idArtist'])
-        .subscribe((id) => {
+        this.activatedRoute.subscribe((id) => {
         this.peliculas.getMovies()
           .subscribe(
             data => {
